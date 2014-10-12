@@ -53,13 +53,16 @@ class Sitback
     * @json : JSON array
     *   $json["mail_type"]  = type String;
     *   $json["sender"]     = type Email;
-    *   $json["recevier"]   = type Array of Email;
+    *   $json["receiver"]   = type Array of Email;
     *   $json["data"]       = type Associative Array
     *
     * @encoded : boolean
     *
     */
     public function send($json,$encoded =false){
+        //dump the passed data
+        // print_r($json);
+        
         //check type
         if(empty($json["mail_type"])){
             throw new SitbackException('Mail Template not provided.');  
@@ -69,12 +72,12 @@ class Sitback
             throw new SitbackException('email sender is not defined.');      
         }
         //check recevier list
-        if(empty($json["recevier"])){
-            throw new SitbackException('email sender is not defined.');      
+        if(empty($json["receiver"])){
+            throw new SitbackException('email receivers is not defined.');      
         }
         //check receiver and it is type of Array
-        if(!is_array($json["recevier"])){
-            $json["recevier"] = array($json["recevier"]);
+        if(!is_array($json["receiver"])){
+            $json["receiver"] = array($json["receiver"]);
         }       
 
         $api_url = $this->url;  
@@ -99,7 +102,7 @@ class Sitback
         curl_setopt( $curl, CURLOPT_POST, 1 );
         curl_setopt( $curl, CURLOPT_POSTFIELDS, $json_opt );
         //More curl opt
-
+    
         $response = $this->_execute( $curl );
         return $response;
     }
