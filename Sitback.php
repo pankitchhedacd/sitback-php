@@ -1,13 +1,13 @@
 <?php
 /*
-
+  
   PHP Client for Sitback.
 
-  Send transactional email with ease.
+  Send Beautiful transactional email with ease.
 
   @author: Samal Gorai
 
-  @version: 0.1
+  @version: 0.1.1
 
 */ 
 
@@ -47,10 +47,15 @@ class Sitback
     private function setHeader(){
         //set headers properly to appliction type json.
     }
-    
+
     /**
-    *  Send email request to the Sitback.
+    * Send email request to the Sitback.
     * @json : JSON array
+    *   $json["mail_type"]  = type String;
+    *   $json["sender"]     = type Email;
+    *   $json["recevier"]   = type Array of Email;
+    *   $json["data"]       = type Associative Array
+    *
     * @encoded : boolean
     *
     */
@@ -73,8 +78,11 @@ class Sitback
         }       
 
         $api_url = $this->url;  
+
+        //TODO: create query params
+
         //TODO: create a signature
-            
+
         //json_encode
         if(!$encoded){
             $json_opt = json_encode($json);
