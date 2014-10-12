@@ -26,7 +26,7 @@ class Sitback
     private $headers;
 
 
-    private function __construct($token, $key){
+    private function __construct($token, $key, $secret){
         //Set all the parameters.
         $this->generateUrl($token);     
         //Do all the token validation.
@@ -37,9 +37,9 @@ class Sitback
     }
 
     //Singleton instance;    
-    public static function Init($token,$key){
+    public static function Init($token,$key,$secret){
         if(!self::$instance){
-            self::$instance = new Sitback($token, $key);
+            self::$instance = new Sitback($token, $key, $secret);
         }
         return self::$instance;
     }
@@ -47,19 +47,38 @@ class Sitback
     private function setHeader(){
         //set headers properly to appliction type json.
     }
-    public function send($json){
-        //send email request to the Sitback.
-
-        //check sender
-
+    
+    /**
+    *  Send email request to the Sitback.
+    * @json : JSON array
+    * @encoded : boolean
+    *
+    */
+    public function send($json,$encoded =false){
+        //check type
+        if(empty($json["mail_type"])){
+            throw new SitbackException('Mail Template not provided.');  
+        }
+        //check sender email
+        if(empty($json["sender"])){
+            throw new SitbackException('email sender is not defined.');      
+        }
+        //check recevier list
+        if(empty($json["recevier"])){
+            throw new SitbackException('email sender is not defined.');      
+        }
         //check receiver and it is type of Array
+        if(!is_array($json["recevier"])){
+            $json["recevier"] = array($json["recevier"]);
+        }       
 
-        $this->setHeader();
-
-
-        //create a signature
-
+        $api_url = $this->url;  
+        //TODO: create a signature
+            
         //json_encode
+        if(!$encoded){
+            $json_opt = json_encode($json);
+        }
 
         $curl = curl_init();
         if ( $curl === false )
@@ -70,7 +89,7 @@ class Sitback
         curl_setopt( $curl, CURLOPT_URL, $api_url );
         curl_setopt( $curl, CURLOPT_HTTPHEADER, array ( "Content-Type: application/json" ) );
         curl_setopt( $curl, CURLOPT_POST, 1 );
-        curl_setopt( $curl, CURLOPT_POSTFIELDS, $json );
+        curl_setopt( $curl, CURLOPT_POSTFIELDS, $json_opt );
         //More curl opt
 
         $response = $this->_execute( $curl );
@@ -88,13 +107,17 @@ class Sitback
         return $response;
     }
 
+    //TODO::
     private function createSignature(){
         return $this->signature;
     }
 
+    //
     private function createConn(){
         //open connection to Sitback;
     }
+
+    //
     public function closeConn(){
         //close connection
     }    
