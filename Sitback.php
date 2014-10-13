@@ -17,7 +17,7 @@ class SitbackException extends Exception
 
 class Sitback
 {
-    const HOST = "http://sitback.smalgorai.com";
+    const HOST = "http://sitback.samalgorai.com";
     const RESOURCE = "/api/v1";
     const ENDPOINT = "/send";
     private static $instance ;
@@ -33,7 +33,7 @@ class Sitback
     }
 
     private function generateUrl($token){
-        $this->url = HOST.RESOURCE.SEND."/".$token;     
+        $this->url = Sitback::HOST.Sitback::RESOURCE."/".$token.Sitback::ENDPOINT;     
     }
 
     //Singleton instance;    
@@ -61,7 +61,7 @@ class Sitback
     */
     public function send($json,$encoded =false){
         //dump the passed data
-        // print_r($json);
+        print_r($json);
         
         //check type
         if(empty($json["mail_type"])){
@@ -73,7 +73,7 @@ class Sitback
         }
         //check recevier list
         if(empty($json["receiver"])){
-            throw new SitbackException('email receivers is not defined.');      
+            throw new SitbackException('email receivers list is not defined.');      
         }
         //check receiver and it is type of Array
         if(!is_array($json["receiver"])){
@@ -81,7 +81,7 @@ class Sitback
         }       
 
         $api_url = $this->url;  
-
+        //print_r($api_url);    
         //TODO: create query params
 
         //TODO: create a signature
@@ -113,7 +113,7 @@ class Sitback
         $response[ 'body' ] = curl_exec( $curl );
         $response[ 'status' ] = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
-        curl_close( $ch );
+        curl_close( $curl );
 
         return $response;
     }
