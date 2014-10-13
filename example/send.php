@@ -2,17 +2,17 @@
 
 require_once('../Sitback.php');
 
-$app_id ="df839rjd9f4orue09ri34";
+$app_id ="53dc935398fb601229cf594b";
 $key    ="";
 $secret ="";
 
 $mailer = Sitback::Init($app_id,$key,$secret);
 
 
-$sender     = "abcd@gmamsd.com";
-$recevier   = array("hfujja@jadsf.com","olfsdlls@dskfd.com","kjfosd@jsdkf.com");
+$sender     = "test@treashare.in";
+$receiver   = array("fakeuser@treashare.in");
 $mail_type  = "test";
-$data       = array("name"=>"Samal","random"=>"random");
+$data       = array("name"=>"User","random"=>"random");
 
 $json       = array();
 
