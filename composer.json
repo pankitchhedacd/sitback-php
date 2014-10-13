@@ -1,0 +1,12 @@
+{
+    "name": "samal/sitback-php",
+    "description": "PHP Client for Sitback.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Samal",
+            "email": "samalgorai@gmail.com"
+        }
+    ],
+    "require": {}
+}
