@@ -2,6 +2,7 @@
     "name": "samal/sitback-php",
     "description": "PHP Client for Sitback.",
     "license": "MIT",
+    "version"       :"0.1.1"
     "authors": [
         {
             "name": "Samal",
