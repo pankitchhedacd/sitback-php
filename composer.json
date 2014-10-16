@@ -9,5 +9,8 @@
             "email": "samalgorai@gmail.com"
         }
     ],
+    "autoload": {
+         "psr-0": { "Sitback": "." }
+    },
     "require": {}
 }
