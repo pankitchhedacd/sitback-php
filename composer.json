@@ -10,7 +10,7 @@
         }
     ],
     "autoload": {
-         "psr-4": { "Sitback\\": "src/" }
+         "psr-0": { "Sitback\\": "src/" }
     },
     "require": {}
 }

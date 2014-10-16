@@ -9,13 +9,14 @@
 
   @version: 0.1.1
 
-*/ 
+*/
+namespace Sitback;
 
 class SitbackException extends Exception
 {
 }
 
-class Sitback
+class SitbackFactory
 {
     const HOST = "http://sitback.samalgorai.com";
     const RESOURCE = "/api/v1";
@@ -33,7 +34,7 @@ class Sitback
     }
 
     private function generateUrl($token){
-        $this->url = Sitback::HOST.Sitback::RESOURCE."/".$token.Sitback::ENDPOINT;     
+        $this->url = SitbackFactory::HOST.Sitback::RESOURCE."/".$token.Sitback::ENDPOINT;     
     }
 
     //Singleton instance;    
