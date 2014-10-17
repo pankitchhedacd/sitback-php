@@ -22,7 +22,7 @@ class SitbackFactory{
     const RESOURCE = "/api/v1";
     const ENDPOINT = "/send";
     private static $instance ;
-    private static $url ;
+    private $url ;
 
     private $headers;
 
@@ -34,7 +34,7 @@ class SitbackFactory{
     }
 
     private function generateUrl($token){
-        self::url = SitbackFactory::HOST.SitbackFactory::RESOURCE."/".$token.SitbackFactory::ENDPOINT;     
+        $this->url = SitbackFactory::HOST.SitbackFactory::RESOURCE."/".$token.SitbackFactory::ENDPOINT;     
     }
 
     //Singleton instance;    
@@ -81,7 +81,7 @@ class SitbackFactory{
             $json["receiver"] = array($json["receiver"]);
         }       
 
-        $api_url = self::url;  
+        $api_url = $this->url;  
         //print_r($api_url);    
         //TODO: create query params
 
