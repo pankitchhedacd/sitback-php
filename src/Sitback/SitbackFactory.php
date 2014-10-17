@@ -7,17 +7,17 @@
 
   @author: Samal Gorai
 
-  @version: 0.1.1
+  @version: 0.1.2
 
 */
 namespace Sitback;
 
-class SitbackException extends Exception
-{
+use Exception;
+
+class SitbackException extends Exception{
 }
 
-class SitbackFactory
-{
+class SitbackFactory{
     const HOST = "http://sitback.samalgorai.com";
     const RESOURCE = "/api/v1";
     const ENDPOINT = "/send";
@@ -34,13 +34,13 @@ class SitbackFactory
     }
 
     private function generateUrl($token){
-        $this->url = SitbackFactory::HOST.Sitback::RESOURCE."/".$token.Sitback::ENDPOINT;     
+        $this->url = SitbackFactory::HOST.SitbackFactory::RESOURCE."/".$token.SitbackFactory::ENDPOINT;     
     }
 
     //Singleton instance;    
     public static function Init($token,$key,$secret){
         if(!self::$instance){
-            self::$instance = new Sitback($token, $key, $secret);
+            self::$instance = new SitbackFactory($token, $key, $secret);
         }
         return self::$instance;
     }
@@ -136,4 +136,4 @@ class SitbackFactory
 
 }
 
-?>
+
