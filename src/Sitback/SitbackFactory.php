@@ -18,7 +18,7 @@ class SitbackException extends Exception{
 }
 
 class SitbackFactory{
-    const HOST = "http://sitback.samalgorai.com";
+    const HOST = "http://api.sitback.co";
     const RESOURCE = "/api/v1";
     const ENDPOINT = "/send";
     private static $instance ;
