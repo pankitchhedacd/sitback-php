@@ -52,8 +52,7 @@ class SitbackFactory{
     /**
     * Send email request to the Sitback.
     * @json : JSON array
-    *   $json["mail_type"]  = type String;
-    *   $json["sender"]     = type Email;
+    *   $json["identifier"]  = type String;
     *   $json["receiver"]   = type Array of Email;
     *   $json["data"]       = type Associative Array
     *
@@ -64,15 +63,12 @@ class SitbackFactory{
         //dump the passed data
         print_r($json);
         
-        //check type
-        if(empty($json["mail_type"])){
+        //check identifier
+        if(empty($json["identifier"])){
             throw new SitbackException('Mail Template not provided.');  
         }
-        //check sender email
-        if(empty($json["sender"])){
-            throw new SitbackException('email sender is not defined.');      
-        }
         //check recevier list
+	//TODO:only allow max 20 email.
         if(empty($json["receiver"])){
             throw new SitbackException('email receivers list is not defined.');      
         }
