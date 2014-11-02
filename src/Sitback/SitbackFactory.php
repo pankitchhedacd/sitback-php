@@ -23,28 +23,30 @@ class SitbackFactory{
     const ENDPOINT = "/send";
     private static $instance ;
     private $url ;
-
+    private $token;
     private $headers;
 
 
-    private function __construct($token, $key, $secret){
+    private function __construct($app, $token, $secret){
         //Set all the parameters.
-        $this->generateUrl($token);     
+        $this->generateUrl($app);
+        $this->token = $token;
         //Do all the token validation.
     }
 
-    private function generateUrl($token){
-        $this->url = SitbackFactory::HOST.SitbackFactory::RESOURCE."/".$token.SitbackFactory::ENDPOINT;     
+    private function generateUrl($app){
+        $this->url = SitbackFactory::HOST.SitbackFactory::RESOURCE."/".$app.SitbackFactory::ENDPOINT;     
     }
 
     //Singleton instance;    
-    public static function Init($token,$key,$secret){
+    public static function Init($app,$token,$secret){
         if(!self::$instance){
-            self::$instance = new SitbackFactory($token, $key, $secret);
+            self::$instance = new SitbackFactory($app, $token, $secret);
         }
         return self::$instance;
     }
-
+    
+    //TODO:Set token here
     private function setHeader(){
         //set headers properly to appliction type json.
     }
@@ -60,15 +62,13 @@ class SitbackFactory{
     *
     */
     public function send($json,$encoded =false){
-        //dump the passed data
-        print_r($json);
-        
+
         //check identifier
         if(empty($json["identifier"])){
             throw new SitbackException('Mail Template not provided.');  
         }
         //check recevier list
-	//TODO:only allow max 20 email.
+	    //TODO:only allow max 20 email.
         if(empty($json["receiver"])){
             throw new SitbackException('email receivers list is not defined.');      
         }
@@ -78,7 +78,7 @@ class SitbackFactory{
         }       
 
         $api_url = $this->url;  
-        //print_r($api_url);    
+           
         //TODO: create query params
 
         //TODO: create a signature
@@ -99,8 +99,11 @@ class SitbackFactory{
         curl_setopt( $curl, CURLOPT_POST, 1 );
         curl_setopt( $curl, CURLOPT_POSTFIELDS, $json_opt );
         //More curl opt
-    
-        $response = $this->_execute( $curl );
+        try{    
+          $response = $this->_execute( $curl );
+        }catch(Exception $e){
+          $response "Failed.";
+        }
         return $response;
     }
 
