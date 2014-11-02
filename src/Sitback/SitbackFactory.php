@@ -102,7 +102,7 @@ class SitbackFactory{
         try{    
           $response = $this->_execute( $curl );
         }catch(Exception $e){
-          $response "Failed.";
+          $response = "Failed.";
         }
         return $response;
     }
