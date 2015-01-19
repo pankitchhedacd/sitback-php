@@ -98,6 +98,8 @@ class SitbackFactory{
         curl_setopt( $curl, CURLOPT_HTTPHEADER, array ( "Content-Type: application/json" ) );
         curl_setopt( $curl, CURLOPT_POST, 1 );
         curl_setopt( $curl, CURLOPT_POSTFIELDS, $json_opt );
+        //CURLOPT_RETURNTRANSFER Flag makes the request made to the 3rd party to complete before returning the response to ensure
+        //we have the API results in place before moving forward.
         curl_setopt( $curl,CURLOPT_RETURNTRANSFER, true);
         //More curl opt
         try{    
